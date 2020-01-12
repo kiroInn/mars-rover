@@ -13,4 +13,10 @@ public class MarsRoverTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void should_report_position_move_when_given_move_command() {
+        String expected = "0 1 N";
+        String actual = MarsRover.execute("0 0 N M");
+        assertEquals(expected, actual);
+    }
 }
