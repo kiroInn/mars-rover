@@ -11,4 +11,10 @@ public class MarsRoverTest {
         assertEquals(1, 1);
     }
 
+    @Test
+    public void should_return_1_when_given_2() {
+        assertEquals(2, 2);
+    }
+
+
 }
