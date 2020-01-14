@@ -61,4 +61,20 @@ public class MarsRoverTest {
         assertEquals("2 1 E", MarsRover.execute("0 1 E MM"));
         assertEquals("3 2 E", MarsRover.execute("0 2 E MMM"));
     }
+
+    @Test
+    public void should_report_position_when_given_turn_left() {
+        assertEquals("0 0 E", MarsRover.execute("0 0 N L"));
+        assertEquals("0 0 S", MarsRover.execute("0 0 N LL"));
+        assertEquals("0 0 W", MarsRover.execute("0 0 N LLL"));
+        assertEquals("0 0 N", MarsRover.execute("0 0 N LLLL"));
+    }
+
+    @Test
+    public void should_report_position_when_given_turn_right() {
+        assertEquals("0 0 W", MarsRover.execute("0 0 N R"));
+        assertEquals("0 0 S", MarsRover.execute("0 0 N RR"));
+        assertEquals("0 0 E", MarsRover.execute("0 0 N RRR"));
+        assertEquals("0 0 N", MarsRover.execute("0 0 N RRRR"));
+    }
 }

@@ -37,27 +37,53 @@ class Rover {
     public String execute(List<Instruction> instructions) {
         if (null != instructions) {
             instructions.forEach(instruction -> {
+                if (instruction.equals(Instruction.L) || instruction.equals(Instruction.R)) {
+                    this.setDirection(getTurnedDirection(instruction));
+                }
                 if (instruction.equals(Instruction.M)) {
-                    int positionX = this.pointer.getPositionX();
-                    int positionY = this.pointer.getPositionY();
-                    if (this.direction == Direction.N) {
-                        positionY += 1;
-                    }
-                    if (this.direction == Direction.S) {
-                        positionY -= 1;
-                    }
-                    if (this.direction == Direction.E) {
-                        positionX += 1;
-                    }
-                    if (this.direction == Direction.W) {
-                        positionX -= 1;
-                    }
-                    this.pointer.setPositionX(positionX);
-                    this.pointer.setPositionY(positionY);
+                    this.setPointer(this.getMovedPosition());
                 }
             });
         }
         return String.valueOf(this.pointer.getPositionX()) + " " + String.valueOf(this.pointer.getPositionY()) + " "
                 + this.direction;
+    }
+
+    private Direction getTurnedDirection(Instruction instruction) {
+        if ((this.direction == Direction.E && instruction.equals(Instruction.R))
+                || (this.direction == Direction.W && instruction.equals(Instruction.L))) {
+            return Direction.N;
+        }
+        if ((this.direction == Direction.S && instruction.equals(Instruction.R))
+                || (this.direction == Direction.N && instruction.equals(Instruction.L))) {
+            return Direction.E;
+        }
+        if ((this.direction == Direction.W && instruction.equals(Instruction.R))
+                || (this.direction == Direction.E && instruction.equals(Instruction.L))) {
+            return Direction.S;
+        }
+        if ((this.direction == Direction.N && instruction.equals(Instruction.R))
+                || (this.direction == Direction.S && instruction.equals(Instruction.L))) {
+            return Direction.W;
+        }
+        return null;
+    }
+
+    private Position getMovedPosition() {
+        int positionX = this.pointer.getPositionX();
+        int positionY = this.pointer.getPositionY();
+        if (this.direction == Direction.N) {
+            positionY += 1;
+        }
+        if (this.direction == Direction.S) {
+            positionY -= 1;
+        }
+        if (this.direction == Direction.E) {
+            positionX += 1;
+        }
+        if (this.direction == Direction.W) {
+            positionX -= 1;
+        }
+        return new Position(positionX, positionY);
     }
 }
