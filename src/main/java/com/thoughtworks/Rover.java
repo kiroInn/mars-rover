@@ -38,8 +38,22 @@ class Rover {
         if (null != instructions) {
             instructions.forEach(instruction -> {
                 if (instruction.equals(Instruction.M)) {
-                    int currentPositionY = this.pointer.getPositionY();
-                    this.pointer.setPositionY(currentPositionY + 1);
+                    int positionX = this.pointer.getPositionX();
+                    int positionY = this.pointer.getPositionY();
+                    if (this.direction == Direction.N) {
+                        positionY += 1;
+                    }
+                    if (this.direction == Direction.S) {
+                        positionY -= 1;
+                    }
+                    if (this.direction == Direction.E) {
+                        positionX += 1;
+                    }
+                    if (this.direction == Direction.W) {
+                        positionX -= 1;
+                    }
+                    this.pointer.setPositionX(positionX);
+                    this.pointer.setPositionY(positionY);
                 }
             });
         }
