@@ -38,7 +38,8 @@ class Rover {
         if (null != instructions) {
             instructions.forEach(instruction -> {
                 if (instruction.equals(Instruction.M)) {
-                    this.pointer.setPositionY(1);
+                    int currentPositionY = this.pointer.getPositionY();
+                    this.pointer.setPositionY(currentPositionY + 1);
                 }
             });
         }

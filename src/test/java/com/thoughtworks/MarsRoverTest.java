@@ -29,5 +29,11 @@ public class MarsRoverTest {
     @Test
     public void should_report_position_move_when_given_move_command() {
         assertEquals("0 1 N", MarsRover.execute("0 0 N M"));
+        assertEquals("0 2 N", MarsRover.execute("0 0 N MM"));
+        assertEquals("0 3 N", MarsRover.execute("0 0 N MMM"));
+
+        assertEquals("1 6 N", MarsRover.execute("1 5 N M"));
+        assertEquals("1 7 N", MarsRover.execute("1 5 N MM"));
+        assertEquals("1 8 N", MarsRover.execute("1 5 N MMM"));
     }
 }
