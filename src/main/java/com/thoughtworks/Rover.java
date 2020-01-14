@@ -27,21 +27,17 @@ class Rover {
         this.pointer = pointer;
     }
 
-    public String execute(String command) {
-        if (command.equals("0 0 N M")) {
-            return "0 1 N";
-        }
-        return command;
-    }
-
     public String execute(List<Instruction> instructions) {
         if (null != instructions) {
             instructions.forEach(instruction -> {
-                if (instruction.equals(Instruction.L) || instruction.equals(Instruction.R)) {
-                    this.setDirection(getTurnedDirection(instruction));
+                if (instruction.equals(Instruction.L)) {
+                    this.turnLeft();
+                }
+                if (instruction.equals(Instruction.R)) {
+                    this.turnRight();
                 }
                 if (instruction.equals(Instruction.M)) {
-                    this.setPointer(this.getMovedPosition());
+                    this.moved();
                 }
             });
         }
@@ -49,27 +45,41 @@ class Rover {
                 + this.direction;
     }
 
-    private Direction getTurnedDirection(Instruction instruction) {
-        if ((this.direction == Direction.E && instruction.equals(Instruction.R))
-                || (this.direction == Direction.W && instruction.equals(Instruction.L))) {
-            return Direction.N;
+    private void turnRight() {
+        Direction result = null;
+        if (this.direction == Direction.W) {
+            result = Direction.S;
         }
-        if ((this.direction == Direction.S && instruction.equals(Instruction.R))
-                || (this.direction == Direction.N && instruction.equals(Instruction.L))) {
-            return Direction.E;
+        if (this.direction == Direction.N) {
+            result = Direction.W;
         }
-        if ((this.direction == Direction.W && instruction.equals(Instruction.R))
-                || (this.direction == Direction.E && instruction.equals(Instruction.L))) {
-            return Direction.S;
+        if (this.direction == Direction.E) {
+            result = Direction.N;
         }
-        if ((this.direction == Direction.N && instruction.equals(Instruction.R))
-                || (this.direction == Direction.S && instruction.equals(Instruction.L))) {
-            return Direction.W;
+        if (this.direction == Direction.S) {
+            result = Direction.E;
         }
-        return null;
+        this.setDirection(result);
     }
 
-    private Position getMovedPosition() {
+    private void turnLeft() {
+        Direction result = null;
+        if (this.direction == Direction.E) {
+            result = Direction.S;
+        }
+        if (this.direction == Direction.N) {
+            result = Direction.E;
+        }
+        if (this.direction == Direction.W) {
+            result = Direction.N;
+        }
+        if (this.direction == Direction.S) {
+            result = Direction.W;
+        }
+        this.setDirection(result);
+    }
+
+    private void moved() {
         int positionX = this.pointer.getPositionX();
         int positionY = this.pointer.getPositionY();
         if (this.direction == Direction.N) {
@@ -84,6 +94,6 @@ class Rover {
         if (this.direction == Direction.W) {
             positionX -= 1;
         }
-        return new Position(positionX, positionY);
+        this.setPointer(new Position(positionX, positionY));
     }
 }
