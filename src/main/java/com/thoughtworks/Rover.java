@@ -1,28 +1,18 @@
 package com.thoughtworks;
 
 class Rover {
-    private int positionX;
-    private int positionY;
+    private Pointer pointer;
 
-    Rover(int positionX, int positionY) {
-        this.setPositionX(positionX);
-        this.setPositionY(positionY);
+    Rover(Pointer pointer) {
+        this.setPointer(pointer);
     }
 
-    public int getPositionY() {
-        return positionY;
+    public Pointer getPointer() {
+        return pointer;
     }
 
-    public void setPositionY(int positionY) {
-        this.positionY = positionY;
-    }
-
-    public int getPositionX() {
-        return positionX;
-    }
-
-    public void setPositionX(int positionX) {
-        this.positionX = positionX;
+    public void setPointer(Pointer pointer) {
+        this.pointer = pointer;
     }
 
 	public String execute(String command) {

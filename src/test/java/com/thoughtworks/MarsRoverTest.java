@@ -19,4 +19,11 @@ public class MarsRoverTest {
         String actual = MarsRover.execute("0 0 N M");
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void should_parse_correct_position_when_given_command() {
+        Pointer expected = new Pointer(1, 2);
+        Pointer actual = MarsRover.parsePosition("1 2 N M");
+        assertEquals(expected, actual);
+    }
 }
