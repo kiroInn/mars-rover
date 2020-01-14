@@ -1,17 +1,17 @@
 package com.thoughtworks;
 
 class Rover {
-    private Pointer pointer;
+    private Position pointer;
 
-    Rover(Pointer pointer) {
+    Rover(Position pointer) {
         this.setPointer(pointer);
     }
 
-    public Pointer getPointer() {
+    public Position getPointer() {
         return pointer;
     }
 
-    public void setPointer(Pointer pointer) {
+    public void setPointer(Position pointer) {
         this.pointer = pointer;
     }
 

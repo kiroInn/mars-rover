@@ -22,8 +22,16 @@ public class MarsRoverTest {
 
     @Test
     public void should_parse_correct_position_when_given_command() {
-        Pointer expected = new Pointer(1, 2);
-        Pointer actual = MarsRover.parsePosition("1 2 N M");
+        Position expected = new Position(1, 2);
+        Position actual = MarsRover.parsePosition("1 2 N M");
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void should_parse_correct_orientation_when_given_command() {
+        assertEquals(Direction.N, MarsRover.parseDirection("1 2 N"));
+        assertEquals(Direction.S, MarsRover.parseDirection("1 2 S"));
+        assertEquals(Direction.W, MarsRover.parseDirection("1 2 W"));
+        assertEquals(Direction.E, MarsRover.parseDirection("1 2 E"));
     }
 }

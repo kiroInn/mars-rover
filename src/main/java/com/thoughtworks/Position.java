@@ -1,10 +1,10 @@
 package com.thoughtworks;
 
-public class Pointer {
+public class Position {
     private int positionX;
     private int positionY;
 
-    Pointer(int positionX, int positionY) {
+    Position(int positionX, int positionY) {
         this.setPositionX(positionX);
         this.setPositionY(positionY);
     }
@@ -27,7 +27,7 @@ public class Pointer {
 
     @Override
     public boolean equals(Object obj) {
-        Pointer pointer = (Pointer) obj;
+        Position pointer = (Position) obj;
         return this.positionX == pointer.getPositionX() &&
         this.positionY == pointer.getPositionY();
     }
