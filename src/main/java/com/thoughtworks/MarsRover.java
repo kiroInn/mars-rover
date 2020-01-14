@@ -1,27 +1,46 @@
 package com.thoughtworks;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MarsRover {
     public static String execute(String command) {
         Position pointer = parsePosition(command);
-        Rover rover = new Rover(pointer);
-        return rover.execute(command);
+        Direction direction = parseDirection(command);
+        List<Instruction> instructions = parseInstructions(command);
+        Rover rover = new Rover(pointer, direction);
+        return rover.execute(instructions);
     }
 
-	public static Position parsePosition(String positionCommand) {
+    private static List<Instruction> parseInstructions(String positionCommand) {
         String[] parts = positionCommand.split(" ");
-        if(parts.length < 2){
+        if (parts.length < 4) {
+            return null;
+        }
+        List<Instruction> result = new ArrayList<Instruction>();
+        String[] instructions = parts[3].split("");
+        for(String instruction: instructions){
+            System.out.println(Instruction.valueOf(instruction));
+            result.add(Instruction.valueOf(instruction));
+        }
+        return result;
+    }
+
+    public static Position parsePosition(String positionCommand) {
+        String[] parts = positionCommand.split(" ");
+        if (parts.length < 2) {
             return null;
         }
         int positionX = Integer.parseInt(parts[0]);
         int positionY = Integer.parseInt(parts[1]);
         return new Position(positionX, positionY);
-	}
+    }
 
-	public static Direction parseDirection(String positionCommand) {
+    public static Direction parseDirection(String positionCommand) {
         String[] parts = positionCommand.split(" ");
-        if(parts.length < 3){
+        if (parts.length < 3) {
             return null;
         }
-		return Direction.valueOf(parts[2]);
-	}
+        return Direction.valueOf(parts[2]);
+    }
 }

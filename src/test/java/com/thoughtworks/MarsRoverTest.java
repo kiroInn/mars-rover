@@ -14,17 +14,8 @@ public class MarsRoverTest {
     }
 
     @Test
-    public void should_report_position_move_when_given_move_command() {
-        String expected = "0 1 N";
-        String actual = MarsRover.execute("0 0 N M");
-        assertEquals(expected, actual);
-    }
-
-    @Test
     public void should_parse_correct_position_when_given_command() {
-        Position expected = new Position(1, 2);
-        Position actual = MarsRover.parsePosition("1 2 N M");
-        assertEquals(expected, actual);
+        assertEquals(new Position(1, 2), MarsRover.parsePosition("1 2 N M"));
     }
 
     @Test
@@ -33,5 +24,10 @@ public class MarsRoverTest {
         assertEquals(Direction.S, MarsRover.parseDirection("1 2 S"));
         assertEquals(Direction.W, MarsRover.parseDirection("1 2 W"));
         assertEquals(Direction.E, MarsRover.parseDirection("1 2 E"));
+    }
+
+    @Test
+    public void should_report_position_move_when_given_move_command() {
+        assertEquals("0 1 N", MarsRover.execute("0 0 N M"));
     }
 }
