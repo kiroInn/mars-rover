@@ -20,10 +20,10 @@ public class MarsRoverTest {
 
     @Test
     public void should_parse_correct_orientation_when_given_command() {
-        assertEquals(Direction.N, MarsRover.parseDirection("1 2 N"));
-        assertEquals(Direction.S, MarsRover.parseDirection("1 2 S"));
-        assertEquals(Direction.W, MarsRover.parseDirection("1 2 W"));
-        assertEquals(Direction.E, MarsRover.parseDirection("1 2 E"));
+        assertEquals(Navigator.N, MarsRover.parseDirection("1 2 N"));
+        assertEquals(Navigator.S, MarsRover.parseDirection("1 2 S"));
+        assertEquals(Navigator.W, MarsRover.parseDirection("1 2 W"));
+        assertEquals(Navigator.E, MarsRover.parseDirection("1 2 E"));
     }
 
     @Test
@@ -85,4 +85,5 @@ public class MarsRoverTest {
         assertEquals("-1 1 S", MarsRover.execute("0 0 N MRMR"));
         assertEquals("-1 0 E", MarsRover.execute("0 0 N MRMRMR"));
     }
+
 }

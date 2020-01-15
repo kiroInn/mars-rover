@@ -6,7 +6,7 @@ import java.util.List;
 public class MarsRover {
     public static String execute(String command) {
         Position pointer = parsePosition(command);
-        Direction direction = parseDirection(command);
+        Navigator direction = parseDirection(command);
         List<Instruction> instructions = parseInstructions(command);
         Rover rover = new Rover(pointer, direction);
         return rover.execute(instructions);
@@ -19,8 +19,7 @@ public class MarsRover {
         }
         List<Instruction> result = new ArrayList<Instruction>();
         String[] instructions = parts[3].split("");
-        for(String instruction: instructions){
-            System.out.println(Instruction.valueOf(instruction));
+        for (String instruction : instructions) {
             result.add(Instruction.valueOf(instruction));
         }
         return result;
@@ -36,11 +35,11 @@ public class MarsRover {
         return new Position(positionX, positionY);
     }
 
-    public static Direction parseDirection(String positionCommand) {
+    public static Navigator parseDirection(String positionCommand) {
         String[] parts = positionCommand.split(" ");
         if (parts.length < 3) {
             return null;
         }
-        return Direction.valueOf(parts[2]);
+        return Navigator.valueOf(parts[2]);
     }
 }

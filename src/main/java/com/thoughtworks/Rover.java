@@ -3,95 +3,69 @@ package com.thoughtworks;
 import java.util.List;
 
 class Rover {
-    private Position pointer;
-    private Direction direction;
+    private Position position;
+    private Navigator navigator;
 
-    Rover(Position pointer, Direction direction) {
+    Rover(Position pointer, Navigator navigator) {
         this.setPointer(pointer);
-        this.setDirection(direction);
+        this.setNavigator(navigator);
     }
 
-    public Direction getDirection() {
-        return direction;
+    public Navigator getNavigator() {
+        return navigator;
     }
 
-    public void setDirection(Direction direction) {
-        this.direction = direction;
+    public void setNavigator(Navigator navigator) {
+        this.navigator = navigator;
     }
 
     public Position getPointer() {
-        return pointer;
+        return position;
     }
 
     public void setPointer(Position pointer) {
-        this.pointer = pointer;
+        this.position = pointer;
     }
 
     public String execute(List<Instruction> instructions) {
         if (null != instructions) {
             instructions.forEach(instruction -> {
-                if (instruction.equals(Instruction.L)) {
+                if (Instruction.isLeft(instruction)) {
                     this.turnLeft();
                 }
-                if (instruction.equals(Instruction.R)) {
+                if (Instruction.isRight(instruction)) {
                     this.turnRight();
                 }
-                if (instruction.equals(Instruction.M)) {
-                    this.moved();
+                if (Instruction.isMove(instruction)) {
+                    this.move();
                 }
             });
         }
-        return String.valueOf(this.pointer.getPositionX()) + " " + String.valueOf(this.pointer.getPositionY()) + " "
-                + this.direction;
+        return String.valueOf(this.position.getPositionX()) + " " + String.valueOf(this.position.getPositionY()) + " "
+                + this.navigator;
     }
 
     private void turnRight() {
-        Direction result = null;
-        if (this.direction == Direction.W) {
-            result = Direction.S;
-        }
-        if (this.direction == Direction.N) {
-            result = Direction.W;
-        }
-        if (this.direction == Direction.E) {
-            result = Direction.N;
-        }
-        if (this.direction == Direction.S) {
-            result = Direction.E;
-        }
-        this.setDirection(result);
+        this.setNavigator(Navigator.turnRight(this.navigator));
     }
 
     private void turnLeft() {
-        Direction result = null;
-        if (this.direction == Direction.E) {
-            result = Direction.S;
-        }
-        if (this.direction == Direction.N) {
-            result = Direction.E;
-        }
-        if (this.direction == Direction.W) {
-            result = Direction.N;
-        }
-        if (this.direction == Direction.S) {
-            result = Direction.W;
-        }
-        this.setDirection(result);
+        this.setNavigator(Navigator.turnLeft(this.navigator));
     }
 
-    private void moved() {
-        int positionX = this.pointer.getPositionX();
-        int positionY = this.pointer.getPositionY();
-        if (this.direction == Direction.N) {
+    private void move() {
+        int positionX = this.position.getPositionX();
+        int positionY = this.position.getPositionY();
+        if (this.navigator == Navigator.N) {
             positionY += 1;
         }
-        if (this.direction == Direction.S) {
+        if (this.navigator == Navigator.S) {
             positionY -= 1;
         }
-        if (this.direction == Direction.E) {
+        if (this.navigator == Navigator.E) {
             positionX += 1;
         }
-        if (this.direction == Direction.W) {
+        if (this.navigator == Navigator.W) {
             positionX -= 1;
         }
         this.setPointer(new Position(positionX, positionY));
