@@ -1,7 +1,7 @@
 package com.thoughtworks;
 
 public enum Instruction {
-    M, L, R;
+    M, L, R, B;
 
     public static Boolean isMove(Instruction instruction) {
         return M.equals(instruction);
@@ -14,4 +14,8 @@ public enum Instruction {
     public static Boolean isRight(Instruction instruction) {
         return R.equals(instruction);
     }
+
+	public static boolean isBack(Instruction instruction) {
+		return B.equals(instruction);
+	}
 }

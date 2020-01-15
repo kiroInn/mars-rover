@@ -86,4 +86,11 @@ public class MarsRoverTest {
         assertEquals("-1 0 E", MarsRover.execute("0 0 N MRMRMR"));
     }
 
+    @Test
+    public void should_handle_back_instruction_when_given_back_instructions() {
+        assertEquals("0 -1 N", MarsRover.execute("0 0 N BM"));
+        assertEquals("0 0 N", MarsRover.execute("0 0 N BMBM"));
+        assertEquals("0 2 N", MarsRover.execute("0 0 N BMBMMM"));
+    }
+
 }

@@ -5,10 +5,12 @@ import java.util.List;
 class Rover {
     private Position position;
     private Navigator navigator;
+    private boolean isAstern;
 
     Rover(Position pointer, Navigator navigator) {
         this.setPointer(pointer);
         this.setNavigator(navigator);
+        this.isAstern = false;
     }
 
     public Navigator getNavigator() {
@@ -30,6 +32,9 @@ class Rover {
     public String execute(List<Instruction> instructions) {
         if (null != instructions) {
             instructions.forEach(instruction -> {
+                if (Instruction.isBack(instruction)) {
+                    this.openAstern();
+                }
                 if (Instruction.isLeft(instruction)) {
                     this.turnLeft();
                 }
@@ -45,6 +50,10 @@ class Rover {
                 + this.navigator;
     }
 
+    private void openAstern() {
+        this.isAstern = !this.isAstern;
+    }
+
     private void turnRight() {
         this.setNavigator(Navigator.turnRight(this.navigator));
     }
@@ -57,16 +66,32 @@ class Rover {
         int positionX = this.position.getPositionX();
         int positionY = this.position.getPositionY();
         if (this.navigator == Navigator.N) {
-            positionY += 1;
+            if (this.isAstern) {
+                positionY -= 1;
+            } else {
+                positionY += 1;
+            }
         }
         if (this.navigator == Navigator.S) {
-            positionY -= 1;
+            if (this.isAstern) {
+                positionY += 1;
+            } else {
+                positionY -= 1;
+            }
         }
         if (this.navigator == Navigator.E) {
-            positionX += 1;
+            if (this.isAstern) {
+                positionX -= 1;
+            } else {
+                positionX += 1;
+            }
         }
         if (this.navigator == Navigator.W) {
-            positionX -= 1;
+            if (this.isAstern) {
+                positionX += 1;
+            } else {
+                positionX -= 1;
+            }
         }
         this.setPointer(new Position(positionX, positionY));
     }
