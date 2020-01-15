@@ -7,9 +7,8 @@ public class MarsRover {
     public static String execute(String command) {
         Position pointer = parsePosition(command);
         Navigator direction = parseDirection(command);
-        List<Instruction> instructions = parseInstructions(command);
         Rover rover = new Rover(pointer, direction);
-        return rover.execute(instructions);
+        return rover.execute(parseInstructions(command));
     }
 
     private static List<Instruction> parseInstructions(String positionCommand) {
