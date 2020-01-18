@@ -3,6 +3,8 @@ package com.thoughtworks;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class MarsRoverTest {
 
@@ -20,10 +22,10 @@ public class MarsRoverTest {
 
     @Test
     public void should_parse_correct_orientation_when_given_command() {
-        assertEquals(Navigator.N, MarsRover.parseDirection("1 2 N"));
-        assertEquals(Navigator.S, MarsRover.parseDirection("1 2 S"));
-        assertEquals(Navigator.W, MarsRover.parseDirection("1 2 W"));
-        assertEquals(Navigator.E, MarsRover.parseDirection("1 2 E"));
+        assertEquals(Direction.N, MarsRover.parseDirection("1 2 N"));
+        assertEquals(Direction.S, MarsRover.parseDirection("1 2 S"));
+        assertEquals(Direction.W, MarsRover.parseDirection("1 2 W"));
+        assertEquals(Direction.E, MarsRover.parseDirection("1 2 E"));
     }
 
     @Test
@@ -64,26 +66,26 @@ public class MarsRoverTest {
 
     @Test
     public void should_report_position_when_given_turn_left() {
-        assertEquals("0 0 E", MarsRover.execute("0 0 N L"));
+        assertEquals("0 0 W", MarsRover.execute("0 0 N L"));
         assertEquals("0 0 S", MarsRover.execute("0 0 N LL"));
-        assertEquals("0 0 W", MarsRover.execute("0 0 N LLL"));
+        assertEquals("0 0 E", MarsRover.execute("0 0 N LLL"));
         assertEquals("0 0 N", MarsRover.execute("0 0 N LLLL"));
     }
 
     @Test
     public void should_report_position_when_given_turn_right() {
-        assertEquals("0 0 W", MarsRover.execute("0 0 N R"));
+        assertEquals("0 0 E", MarsRover.execute("0 0 N R"));
         assertEquals("0 0 S", MarsRover.execute("0 0 N RR"));
-        assertEquals("0 0 E", MarsRover.execute("0 0 N RRR"));
+        assertEquals("0 0 W", MarsRover.execute("0 0 N RRR"));
         assertEquals("0 0 N", MarsRover.execute("0 0 N RRRR"));
     }
 
     @Test
     public void should_report_correct_position_when_given_turn_and_move_instructions() {
-        assertEquals("0 3 E", MarsRover.execute("0 0 N MMMRRR"));
-        assertEquals("0 1 W", MarsRover.execute("0 0 N MR"));
-        assertEquals("-1 1 S", MarsRover.execute("0 0 N MRMR"));
-        assertEquals("-1 0 E", MarsRover.execute("0 0 N MRMRMR"));
+        assertEquals("0 3 W", MarsRover.execute("0 0 N MMMRRR"));
+        assertEquals("0 1 E", MarsRover.execute("0 0 N MR"));
+        assertEquals("1 1 S", MarsRover.execute("0 0 N MRMR"));
+        assertEquals("1 0 W", MarsRover.execute("0 0 N MRMRMR"));
     }
 
     @Test
@@ -91,6 +93,12 @@ public class MarsRoverTest {
         assertEquals("0 -1 N", MarsRover.execute("0 0 N BM"));
         assertEquals("0 0 N", MarsRover.execute("0 0 N BMBM"));
         assertEquals("0 2 N", MarsRover.execute("0 0 N BMBMMM"));
+    }
+
+    @Test
+    public void should_not_move_when_rover_is_breakdown() {
+        Rover rover = mock(Rover.class);
+        when(rover.isBreakDown()).thenReturn(true);
     }
 
 }

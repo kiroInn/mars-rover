@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MarsRover {
+    public boolean isGood() {
+        return true;
+    }
+
     public static String execute(String command) {
         Position pointer = parsePosition(command);
-        Navigator direction = parseDirection(command);
+        Direction direction = parseDirection(command);
         Rover rover = new Rover(pointer, direction);
         return rover.execute(parseInstructions(command));
     }
@@ -34,11 +38,11 @@ public class MarsRover {
         return new Position(positionX, positionY);
     }
 
-    public static Navigator parseDirection(String positionCommand) {
+    public static Direction parseDirection(String positionCommand) {
         String[] parts = positionCommand.split(" ");
         if (parts.length < 3) {
             return null;
         }
-        return Navigator.valueOf(parts[2]);
+        return Direction.valueOf(parts[2]);
     }
 }

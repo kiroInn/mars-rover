@@ -1,24 +1,25 @@
 package com.thoughtworks;
 
 import java.util.List;
+import java.util.Random;
 
 class Rover {
     private Position position;
-    private Navigator navigator;
+    private Direction direction;
     private boolean isAstern;
 
-    Rover(Position pointer, Navigator navigator) {
+    Rover(Position pointer, Direction navigator) {
         this.setPointer(pointer);
         this.setNavigator(navigator);
         this.isAstern = false;
     }
 
-    public Navigator getNavigator() {
-        return navigator;
+    public Direction getNavigator() {
+        return direction;
     }
 
-    public void setNavigator(Navigator navigator) {
-        this.navigator = navigator;
+    public void setNavigator(Direction navigator) {
+        this.direction = navigator;
     }
 
     public Position getPointer() {
@@ -27,6 +28,10 @@ class Rover {
 
     public void setPointer(Position pointer) {
         this.position = pointer;
+    }
+
+    public boolean isBreakDown() {
+        return new Random().nextInt(2) == 1;
     }
 
     public String execute(List<Instruction> instructions) {
@@ -42,52 +47,52 @@ class Rover {
                     this.turnRight();
                 }
                 if (Instruction.isMove(instruction)) {
-                    this.move();
+                    this.move(direction, this.isAstern);
                 }
             });
         }
         return String.valueOf(this.position.getPositionX()) + " " + String.valueOf(this.position.getPositionY()) + " "
-                + this.navigator;
+                + direction;
     }
 
     private void openAstern() {
-        this.isAstern = !this.isAstern;
+        isAstern = !isAstern;
     }
 
     private void turnRight() {
-        this.setNavigator(Navigator.turnRight(this.navigator));
+        this.setNavigator(this.direction.turnRight());
     }
 
     private void turnLeft() {
-        this.setNavigator(Navigator.turnLeft(this.navigator));
+        this.setNavigator(this.direction.turnLeft());
     }
 
-    private void move() {
+    private void move(Direction navigator, boolean isAstern) {
         int positionX = this.position.getPositionX();
         int positionY = this.position.getPositionY();
-        if (this.navigator == Navigator.N) {
-            if (this.isAstern) {
+        if (navigator == Direction.N) {
+            if (isAstern) {
                 positionY -= 1;
             } else {
                 positionY += 1;
             }
         }
-        if (this.navigator == Navigator.S) {
-            if (this.isAstern) {
+        if (navigator == Direction.S) {
+            if (isAstern) {
                 positionY += 1;
             } else {
                 positionY -= 1;
             }
         }
-        if (this.navigator == Navigator.E) {
-            if (this.isAstern) {
+        if (navigator == Direction.E) {
+            if (isAstern) {
                 positionX -= 1;
             } else {
                 positionX += 1;
             }
         }
-        if (this.navigator == Navigator.W) {
-            if (this.isAstern) {
+        if (navigator == Direction.W) {
+            if (isAstern) {
                 positionX += 1;
             } else {
                 positionX -= 1;
